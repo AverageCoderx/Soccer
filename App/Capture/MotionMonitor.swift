@@ -1,5 +1,5 @@
 import CoreMotion
-import KickMetricsCore
+import SoccerTrackerCore
 
 /// Reads the motion sensor: which way is down (for the physics) and whether
 /// the phone is steady (a moving camera invalidates the measurement).

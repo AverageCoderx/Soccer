@@ -1,5 +1,5 @@
 import XCTest
-@testable import KickMetricsCore
+@testable import SoccerTrackerCore
 
 final class VisionTests: XCTestCase {
     // Half-resolution frames keep the debug-build tests quick; the ball is

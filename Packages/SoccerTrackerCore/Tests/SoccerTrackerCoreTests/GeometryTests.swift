@@ -1,5 +1,5 @@
 import XCTest
-@testable import KickMetricsCore
+@testable import SoccerTrackerCore
 
 final class MatrixTests: XCTestCase {
     func testSolveAndInverse() throws {

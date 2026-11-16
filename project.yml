@@ -1,15 +1,15 @@
 # XcodeGen project definition. The .xcodeproj is generated from this file
 # (in CI: `xcodegen generate`) and is not committed.
-name: KickMetrics
+name: SoccerTracker
 options:
-  bundleIdPrefix: app.kickmetrics
+  bundleIdPrefix: app.soccertracker
   deploymentTarget:
     iOS: "18.0"
   createIntermediateGroups: true
 
 packages:
-  KickMetricsCore:
-    path: Packages/KickMetricsCore
+  SoccerTrackerCore:
+    path: Packages/SoccerTrackerCore
 
 settings:
   base:
@@ -17,7 +17,7 @@ settings:
     SWIFT_STRICT_CONCURRENCY: minimal
 
 targets:
-  KickMetrics:
+  SoccerTracker:
     type: application
     platform: iOS
     sources:
@@ -25,13 +25,13 @@ targets:
         excludes:
           - "Info.plist"
     dependencies:
-      - package: KickMetricsCore
-        product: KickMetricsCore
+      - package: SoccerTrackerCore
+        product: SoccerTrackerCore
     scheme: {}
     info:
       path: App/Info.plist
       properties:
-        CFBundleDisplayName: KickMetrics
+        CFBundleDisplayName: Soccer Tracker
         CFBundleShortVersionString: "0.1.0"
         CFBundleVersion: "1"
         UILaunchScreen:
@@ -44,14 +44,14 @@ targets:
           - UIInterfaceOrientationPortrait
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
-        NSCameraUsageDescription: "KickMetrics uses the camera to track the ball and measure shot speed. Recordings stay on this iPhone."
-        NSMotionUsageDescription: "KickMetrics reads the motion sensor to know which way is down and whether the phone is steady."
+        NSCameraUsageDescription: "Soccer Tracker uses the camera to track the ball and measure shot speed. Recordings stay on this iPhone."
+        NSMotionUsageDescription: "Soccer Tracker reads the motion sensor to know which way is down and whether the phone is steady."
         # Lets you copy recorded clips and debug reports out via the Files app.
         UIFileSharingEnabled: true
         LSSupportsOpeningDocumentsInPlace: true
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: app.kickmetrics.KickMetrics
+        PRODUCT_BUNDLE_IDENTIFIER: app.soccertracker.SoccerTracker
         TARGETED_DEVICE_FAMILY: "1"
         GENERATE_INFOPLIST_FILE: NO
         ENABLE_PREVIEWS: NO

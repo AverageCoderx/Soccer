@@ -1,6 +1,6 @@
 import AVFoundation
 import Combine
-import KickMetricsCore
+import SoccerTrackerCore
 import UIKit
 
 /// Traffic-light state for one setup check.
@@ -136,7 +136,7 @@ final class CameraController: NSObject, ObservableObject {
         // The physical wide (1×) camera, never the multi-camera virtual device:
         // that one can switch lenses mid-shot, which changes the focal length.
         guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
-            throw NSError(domain: "KickMetrics", code: 10, userInfo: [NSLocalizedDescriptionKey: "No back camera found."])
+            throw NSError(domain: "SoccerTracker", code: 10, userInfo: [NSLocalizedDescriptionKey: "No back camera found."])
         }
         self.device = device
 
@@ -147,7 +147,7 @@ final class CameraController: NSObject, ObservableObject {
 
         let input = try AVCaptureDeviceInput(device: device)
         guard session.canAddInput(input) else {
-            throw NSError(domain: "KickMetrics", code: 11, userInfo: [NSLocalizedDescriptionKey: "Can't use the camera."])
+            throw NSError(domain: "SoccerTracker", code: 11, userInfo: [NSLocalizedDescriptionKey: "Can't use the camera."])
         }
         session.addInput(input)
 
@@ -156,7 +156,7 @@ final class CameraController: NSObject, ObservableObject {
         videoOutput.alwaysDiscardsLateVideoFrames = false
         videoOutput.setSampleBufferDelegate(self, queue: videoQueue)
         guard session.canAddOutput(videoOutput) else {
-            throw NSError(domain: "KickMetrics", code: 12, userInfo: [NSLocalizedDescriptionKey: "Can't read camera frames."])
+            throw NSError(domain: "SoccerTracker", code: 12, userInfo: [NSLocalizedDescriptionKey: "Can't read camera frames."])
         }
         session.addOutput(videoOutput)
 
@@ -225,7 +225,7 @@ final class CameraController: NSObject, ObservableObject {
         if let best = candidates.max(by: { maxRate($0) < maxRate($1) }) {
             return (best, min(frameRate, maxRate(best)))
         }
-        throw NSError(domain: "KickMetrics", code: 13,
+        throw NSError(domain: "SoccerTracker", code: 13,
                       userInfo: [NSLocalizedDescriptionKey: "This camera has no 1080p format for measurement."])
     }
 

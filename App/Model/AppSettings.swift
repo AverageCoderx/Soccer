@@ -1,5 +1,5 @@
 import Foundation
-import KickMetricsCore
+import SoccerTrackerCore
 import SwiftUI
 
 /// User settings, stored with @AppStorage keys.

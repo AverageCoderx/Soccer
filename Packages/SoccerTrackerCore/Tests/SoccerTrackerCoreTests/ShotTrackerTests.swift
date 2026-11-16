@@ -1,5 +1,5 @@
 import XCTest
-@testable import KickMetricsCore
+@testable import SoccerTrackerCore
 
 final class ShotTrackerTests: XCTestCase {
     func track(_ shot: SyntheticShot, hint: ImagePoint? = nil) -> ShotTracker {

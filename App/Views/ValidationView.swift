@@ -1,4 +1,4 @@
-import KickMetricsCore
+import SoccerTrackerCore
 import SwiftData
 import SwiftUI
 

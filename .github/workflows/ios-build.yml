@@ -32,7 +32,7 @@ jobs:
       - name: Build (unsigned, device)
         run: |
           set +e
-          xcodebuild -project KickMetrics.xcodeproj -scheme KickMetrics \
+          xcodebuild -project SoccerTracker.xcodeproj -scheme SoccerTracker \
             -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' \
             -derivedDataPath build \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
@@ -47,12 +47,12 @@ jobs:
       - name: Package .ipa
         run: |
           mkdir -p Payload
-          cp -R build/Build/Products/Release-iphoneos/KickMetrics.app Payload/
-          zip -qry KickMetrics.ipa Payload
-          ls -lh KickMetrics.ipa
+          cp -R build/Build/Products/Release-iphoneos/SoccerTracker.app Payload/
+          zip -qry SoccerTracker.ipa Payload
+          ls -lh SoccerTracker.ipa
 
       - uses: actions/upload-artifact@v4
         with:
-          name: KickMetrics-ipa
-          path: KickMetrics.ipa
+          name: SoccerTracker-ipa
+          path: SoccerTracker.ipa
           retention-days: 30

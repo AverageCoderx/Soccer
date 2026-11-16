@@ -1,5 +1,5 @@
 import AVFoundation
-import KickMetricsCore
+import SoccerTrackerCore
 import SwiftUI
 import UIKit
 

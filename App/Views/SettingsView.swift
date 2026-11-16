@@ -1,4 +1,4 @@
-import KickMetricsCore
+import SoccerTrackerCore
 import SwiftUI
 
 struct SettingsView: View {

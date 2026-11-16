@@ -1,5 +1,5 @@
 import AVFoundation
-import KickMetricsCore
+import SoccerTrackerCore
 
 /// Runs the measurement pipeline on a recorded clip: decode every frame in
 /// the window around the kick → detect ball candidates → track → fit.
@@ -17,7 +17,7 @@ enum ClipAnalyzer {
     ) async throws -> Output {
         let asset = AVURLAsset(url: url)
         guard let track = try await asset.loadTracks(withMediaType: .video).first else {
-            throw NSError(domain: "KickMetrics", code: 20, userInfo: [NSLocalizedDescriptionKey: "The recording has no video."])
+            throw NSError(domain: "SoccerTracker", code: 20, userInfo: [NSLocalizedDescriptionKey: "The recording has no video."])
         }
         let reader = try AVAssetReader(asset: asset)
         let output = AVAssetReaderTrackOutput(track: track, outputSettings: [
@@ -25,11 +25,11 @@ enum ClipAnalyzer {
         ])
         output.alwaysCopiesSampleData = false
         guard reader.canAdd(output) else {
-            throw NSError(domain: "KickMetrics", code: 21, userInfo: [NSLocalizedDescriptionKey: "Can't read the recording."])
+            throw NSError(domain: "SoccerTracker", code: 21, userInfo: [NSLocalizedDescriptionKey: "Can't read the recording."])
         }
         reader.add(output)
         guard reader.startReading() else {
-            throw reader.error ?? NSError(domain: "KickMetrics", code: 22, userInfo: [NSLocalizedDescriptionKey: "Can't read the recording."])
+            throw reader.error ?? NSError(domain: "SoccerTracker", code: 22, userInfo: [NSLocalizedDescriptionKey: "Can't read the recording."])
         }
 
         // Analyse from a little before the ball left its spot until well into

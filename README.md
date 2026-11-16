@@ -1,4 +1,4 @@
-# KickMetrics
+# Soccer Tracker
 
 An iPhone app that measures soccer shot speed with the camera.
 
@@ -20,7 +20,7 @@ If a shot can't be measured reliably, the app says so instead of guessing.
 
 ## Layout
 
-- `Packages/KickMetricsCore`: platform-independent measurement core
+- `Packages/SoccerTrackerCore`: platform-independent measurement core
   (geometry, physics, ball detection, tracking, fitting, validation
   statistics). Builds and tests on Linux and macOS.
 - `App/`: the iOS app (camera, recording, screens). Built by
@@ -29,6 +29,6 @@ If a shot can't be measured reliably, the app says so instead of guessing.
 ## Running the core tests
 
 ```bash
-cd Packages/KickMetricsCore
+cd Packages/SoccerTrackerCore
 swift test
 ```

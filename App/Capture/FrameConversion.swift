@@ -1,7 +1,7 @@
 import AVFoundation
 import CoreMedia
 import CoreVideo
-import KickMetricsCore
+import SoccerTrackerCore
 import simd
 
 enum FrameConversion {

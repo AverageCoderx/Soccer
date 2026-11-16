@@ -1,5 +1,5 @@
 import Foundation
-import KickMetricsCore
+import SoccerTrackerCore
 
 enum CaptureMode: String, Codable, CaseIterable, Identifiable {
     case shot

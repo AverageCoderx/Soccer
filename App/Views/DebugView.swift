@@ -1,4 +1,4 @@
-import KickMetricsCore
+import SoccerTrackerCore
 import SwiftUI
 
 /// Per-frame tracking details for one analysis: what the detector saw, what

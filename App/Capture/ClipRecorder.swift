@@ -18,7 +18,7 @@ final class ClipRecorder {
         input = AVAssetWriterInput(mediaType: .video, outputSettings: settings)
         input.expectsMediaDataInRealTime = true
         guard writer.canAdd(input) else {
-            throw NSError(domain: "KickMetrics", code: 1, userInfo: [NSLocalizedDescriptionKey: "Can't set up the video writer."])
+            throw NSError(domain: "SoccerTracker", code: 1, userInfo: [NSLocalizedDescriptionKey: "Can't set up the video writer."])
         }
         writer.add(input)
     }
@@ -42,7 +42,7 @@ final class ClipRecorder {
 
     func finish(completion: @escaping (Error?) -> Void) {
         guard writer.status == .writing else {
-            completion(writer.error ?? NSError(domain: "KickMetrics", code: 2,
+            completion(writer.error ?? NSError(domain: "SoccerTracker", code: 2,
                                                userInfo: [NSLocalizedDescriptionKey: "Nothing was recorded."]))
             return
         }

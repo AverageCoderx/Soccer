@@ -1,5 +1,5 @@
 import XCTest
-@testable import KickMetricsCore
+@testable import SoccerTrackerCore
 
 /// End-to-end tests: synthetic detections → tracker → physics fit → speed.
 /// The ground truth is known exactly, so these check both accuracy and that

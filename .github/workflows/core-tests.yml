@@ -3,11 +3,11 @@ name: Core tests
 on:
   push:
     paths:
-      - "Packages/KickMetricsCore/**"
+      - "Packages/SoccerTrackerCore/**"
       - ".github/workflows/core-tests.yml"
   pull_request:
     paths:
-      - "Packages/KickMetricsCore/**"
+      - "Packages/SoccerTrackerCore/**"
   workflow_dispatch:
 
 permissions:
@@ -19,7 +19,7 @@ jobs:
     container: swift:6.1
     defaults:
       run:
-        working-directory: Packages/KickMetricsCore
+        working-directory: Packages/SoccerTrackerCore
     steps:
       - uses: actions/checkout@v4
       - run: swift --version
@@ -29,7 +29,7 @@ jobs:
     runs-on: macos-latest
     defaults:
       run:
-        working-directory: Packages/KickMetricsCore
+        working-directory: Packages/SoccerTrackerCore
     steps:
       - uses: actions/checkout@v4
       - run: swift --version

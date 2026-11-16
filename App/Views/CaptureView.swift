@@ -1,4 +1,4 @@
-import KickMetricsCore
+import SoccerTrackerCore
 import SwiftData
 import SwiftUI
 
@@ -181,7 +181,7 @@ struct CaptureView: View {
         VStack(spacing: 16) {
             Image(systemName: "camera.fill").font(.largeTitle).foregroundStyle(Theme.accent)
             Text("Camera access needed").font(.title2.weight(.bold))
-            Text("KickMetrics measures shots with the camera. Video stays on this iPhone.")
+            Text("Soccer Tracker measures shots with the camera. Video stays on this iPhone.")
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
             Button("Open Settings") {

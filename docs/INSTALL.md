@@ -1,6 +1,6 @@
-# Installing KickMetrics on an iPhone from a Windows PC
+# Installing Soccer Tracker on an iPhone from a Windows PC
 
-KickMetrics isn't on the App Store. GitHub builds the app file (`.ipa`) on a
+Soccer Tracker isn't on the App Store. GitHub builds the app file (`.ipa`) on a
 cloud Mac; you install it with **Sideloadly** on Windows, signed with your
 own free Apple ID. No Mac and no paid developer account are needed.
 
@@ -37,10 +37,10 @@ sideloaded apps at once.
 
 1. **Download the app.** Open the repository on GitHub → **Actions** tab →
    **iOS build** → the newest run with a green check → scroll to
-   **Artifacts** → download **KickMetrics-ipa** (you must be signed in to
-   GitHub). Unzip it; inside is `KickMetrics.ipa`.
+   **Artifacts** → download **SoccerTracker-ipa** (you must be signed in to
+   GitHub). Unzip it; inside is `SoccerTracker.ipa`.
 2. **Install with Sideloadly.** Open Sideloadly, with the iPhone plugged in:
-   - Drag `KickMetrics.ipa` onto the IPA box.
+   - Drag `SoccerTracker.ipa` onto the IPA box.
    - Choose your iPhone in the device list.
    - Enter your Apple ID email.
    - Press **Start** and enter the Apple ID password when asked.
@@ -49,7 +49,7 @@ sideloaded apps at once.
    certificate. It never goes to GitHub or this project.
 3. **Trust the app.** On the iPhone: Settings → General → VPN & Device
    Management → your Apple ID under "Developer App" → **Trust**.
-4. Open **KickMetrics** and allow camera access.
+4. Open **Soccer Tracker** and allow camera access.
 
 ### Every 7 days
 

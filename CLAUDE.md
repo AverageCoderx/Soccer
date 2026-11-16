@@ -1,4 +1,4 @@
-# KickMetrics: notes for Claude
+# Soccer Tracker: notes for Claude
 
 ## Privacy rule (highest priority)
 
@@ -23,15 +23,16 @@ iPhone camera. The owner has no Mac: iOS builds run on GitHub Actions macOS
 runners, and the unsigned `.ipa` is sideloaded from Windows with Sideloadly
 using a free Apple ID.
 
-- `Packages/KickMetricsCore`: pure Swift (Foundation only), no Apple-only
+- `Packages/SoccerTrackerCore`: pure Swift (Foundation only), no Apple-only
   frameworks, so it builds and tests on Linux. Geometry, physics, tracking,
   fitting, validation statistics, synthetic test data.
-- iOS app layer (camera, Vision, SwiftUI): to be added.
+- `App/`: the iOS app (camera, recording, SwiftUI screens), built in CI from
+  `project.yml` with XcodeGen.
 
 Run the core tests with:
 
 ```bash
-cd Packages/KickMetricsCore && swift test
+cd Packages/SoccerTrackerCore && swift test
 ```
 
 ## Engineering rules

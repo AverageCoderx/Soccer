@@ -1,5 +1,5 @@
 import XCTest
-@testable import KickMetricsCore
+@testable import SoccerTrackerCore
 
 final class ScaleCheckTests: XCTestCase {
     func dropShot(seed: UInt64, radiusBias: Double = 0) -> SyntheticShot {

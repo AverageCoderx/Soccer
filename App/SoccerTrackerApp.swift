@@ -2,7 +2,7 @@ import SwiftData
 import SwiftUI
 
 @main
-struct KickMetricsApp: App {
+struct SoccerTrackerApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()

@@ -1,5 +1,5 @@
 import Foundation
-import KickMetricsCore
+import SoccerTrackerCore
 
 /// Everything needed to understand (or re-run) one analysis. Saved as JSON
 /// next to the clip; it contains measurement data only, no personal or

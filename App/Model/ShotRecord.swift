@@ -1,5 +1,5 @@
 import Foundation
-import KickMetricsCore
+import SoccerTrackerCore
 import SwiftData
 
 /// One recorded shot or drop test, saved on the device.
