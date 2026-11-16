@@ -106,6 +106,18 @@ public struct ShotTracker: Sendable {
         points.filter { $0.phase == .flight }.map(\.observation)
     }
 
+    /// Where the ball is expected at time `t` while in flight (for guiding the detector).
+    public func predictedPosition(at t: Double) -> ImagePoint? {
+        guard state == .inFlight, let kf = filter else { return nil }
+        let dt = t - filterTime
+        return ImagePoint(u: kf.position.u + kf.velocity.u * dt, v: kf.position.v + kf.velocity.v * dt)
+    }
+
+    /// The resting ball's current estimate, if the tracker has confirmed one.
+    public var restPosition: ImagePoint? {
+        rest.map { ImagePoint(u: $0.u, v: $0.v) }
+    }
+
     /// Feeds one frame. Frames must arrive in timestamp order.
     public mutating func process(_ frame: FrameCandidates) {
         let c = configuration

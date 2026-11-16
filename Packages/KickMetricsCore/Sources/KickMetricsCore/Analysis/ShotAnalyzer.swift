@@ -110,7 +110,7 @@ public struct ShotAnalyzer: Sendable {
         }
         let physics = FlightPhysics(gravity: context.gravity, airDensity: configuration.airDensity, ball: context.ball)
         let fitter = FlightFitter(physics: physics, intrinsics: context.intrinsics, configuration: fitConfig)
-        guard let fit = fitter.fit(window) else { return unavailable([.fitFailed]) }
+        guard let fit = fitter.fit(window), fit.converged else { return unavailable([.fitFailed]) }
         if !fit.rejectedObservations.isEmpty {
             warnings.append(.observationsRejected(count: fit.rejectedObservations.count))
         }

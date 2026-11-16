@@ -47,6 +47,10 @@ public struct FlightFitConfiguration: Sendable, Equatable {
     public var readoutTime: Double = 0
     /// Known detector bias in the measured semi-minor axis, pixels (subtracted).
     public var radiusBiasPixels: Double = 0
+    /// Start the extra acceleration from a quadratic fit of the in-image motion
+    /// (used when gravity itself is being measured, as in the drop test).
+    public var estimateInitialAcceleration = false
+    public var maxIterations = 200
 
     public init() {}
 }
@@ -62,6 +66,8 @@ public struct FlightFitResult: Sendable {
     public var rmsCenterResidualPixels: Double
     public var rmsRadiusResidualPixels: Double
     public var iterations: Int
+    /// False if the solver stopped at its iteration limit; such a fit is not trusted.
+    public var converged: Bool
 }
 
 /// Fits a physical flight model to the tracked ball by least squares in image
@@ -170,7 +176,7 @@ public struct FlightFitter: Sendable {
             for i in 0..<3 { r.append(params.extraAcceleration[i] / config.extraAccelerationPriorSigma) }
             return r
         }
-        guard let solution = LevenbergMarquardt.solve(problem, initial: start) else { return nil }
+        guard let solution = LevenbergMarquardt.solve(problem, initial: start, maxIterations: config.maxIterations) else { return nil }
 
         var norms: [Double] = []
         var centerRes: [Double] = []
@@ -209,10 +215,37 @@ public struct FlightFitter: Sendable {
             stp += (p - pm) * (t - tm)
         }
         guard stt > 0 else { return nil }
-        let v = stp / stt
-        let p0 = pm - v * tm
+        var v = stp / stt
+        var p0 = pm - v * tm
+        var extra = Vec3.zero
+        if configuration.estimateInitialAcceleration, pts.count >= 6 {
+            // Per-axis quadratic p(t) = p0 + v t + ½ a t². Depth is noisy, so only
+            // the in-image axes' accelerations are used to start from.
+            for axis in 0..<3 {
+                if let q = Self.quadraticFit(pts.map { ($0.0, $0.1[axis]) }) {
+                    p0[axis] = q.c0
+                    v[axis] = q.c1
+                    if axis < 2 { extra[axis] = 2 * q.c2 }
+                }
+            }
+        }
         return FlightParameters(position: p0, velocity: v, dragCoefficient: configuration.dragCoefficientPrior,
-                                extraAcceleration: .zero).vector
+                                extraAcceleration: extra).vector
+    }
+
+    /// Least squares y = c0 + c1 t + c2 t².
+    static func quadraticFit(_ pts: [(Double, Double)]) -> (c0: Double, c1: Double, c2: Double)? {
+        var m = Matrix(rows: 3, cols: 3)
+        var rhs = [0.0, 0.0, 0.0]
+        for (t, y) in pts {
+            let row = [1.0, t, t * t]
+            for i in 0..<3 {
+                for j in 0..<3 { m[i, j] += row[i] * row[j] }
+                rhs[i] += row[i] * y
+            }
+        }
+        guard let c = m.solve(rhs) else { return nil }
+        return (c[0], c[1], c[2])
     }
 
     private func makeResult(_ fit: SingleFit, used: [BallObservation], rejected: [BallObservation]) -> FlightFitResult? {
@@ -228,7 +261,7 @@ public struct FlightFitter: Sendable {
             covariance: covariance, reducedChiSquare: chi2,
             usedObservations: used, rejectedObservations: rejected,
             rmsCenterResidualPixels: rmsCenter, rmsRadiusResidualPixels: rmsRadius,
-            iterations: fit.solution.iterations)
+            iterations: fit.solution.iterations, converged: fit.solution.converged)
     }
 
     static func median(_ values: [Double]) -> Double {
