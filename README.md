@@ -2,9 +2,12 @@
 
 An iPhone app that measures soccer shot speed with the camera.
 
-**Status:** early development. The measurement core is being built and
-tested against synthetic data. There is no app to install yet, and no accuracy
-claims have been validated against real shots.
+**Status:** first test version. The measurement core is tested against
+synthetic data; it has not yet been validated against real shots or a radar,
+so no accuracy claim is made.
+
+- Install on an iPhone from Windows: [docs/INSTALL.md](docs/INSTALL.md)
+- First tests to run: [docs/TESTING.md](docs/TESTING.md)
 
 ## How it measures
 
@@ -18,8 +21,10 @@ If a shot can't be measured reliably, the app says so instead of guessing.
 ## Layout
 
 - `Packages/KickMetricsCore`: platform-independent measurement core
-  (geometry, physics, tracking, fitting, validation statistics). Builds and
-  tests on Linux and macOS.
+  (geometry, physics, ball detection, tracking, fitting, validation
+  statistics). Builds and tests on Linux and macOS.
+- `App/`: the iOS app (camera, recording, screens). Built by
+  `.github/workflows/ios-build.yml` from `project.yml` with XcodeGen.
 
 ## Running the core tests
 
