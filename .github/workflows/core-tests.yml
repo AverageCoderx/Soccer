@@ -1,0 +1,36 @@
+name: Core tests
+
+on:
+  push:
+    paths:
+      - "Packages/KickMetricsCore/**"
+      - ".github/workflows/core-tests.yml"
+  pull_request:
+    paths:
+      - "Packages/KickMetricsCore/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    container: swift:6.1
+    defaults:
+      run:
+        working-directory: Packages/KickMetricsCore
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift --version
+      - run: swift test
+
+  macos:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: Packages/KickMetricsCore
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift --version
+      - run: swift test

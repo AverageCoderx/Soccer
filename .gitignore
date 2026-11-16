@@ -1,0 +1,38 @@
+# Swift / SwiftPM
+.build/
+.swiftpm/
+Package.resolved
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+xcuserdata/
+DerivedData/
+
+# Build outputs
+*.ipa
+*.xcarchive/
+*.dSYM/
+*.dSYM.zip
+build/
+
+# Personal media and exported data: never commit (see CLAUDE.md privacy rule)
+*.mov
+*.MOV
+*.mp4
+*.MP4
+*.m4v
+*.heic
+*.HEIC
+*.jpg
+*.JPG
+*.jpeg
+*.png
+!docs/images/*.png
+*.csv
+debug-reports/
+*.kickmetrics-report.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
