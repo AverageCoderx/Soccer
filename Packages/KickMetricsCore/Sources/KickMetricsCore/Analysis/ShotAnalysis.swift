@@ -104,6 +104,23 @@ public enum ShotWarning: Sendable, Equatable, Codable {
     case frameGaps(maxGapSeconds: Double)
     /// The shot had a large component toward/away from the camera; that part relies on size change.
     case largeOutOfPlaneMotion(angleDegrees: Double)
+
+    public var explanation: String {
+        switch self {
+        case .noRestPhase:
+            return "The ball wasn't seen resting before the kick."
+        case .gravityNotMeasured:
+            return "The motion sensor's gravity reading wasn't available; an assumed direction was used."
+        case let .rollingShutterUncalibrated(rel):
+            return String(format: "Camera line-by-line readout timing isn't calibrated (adds ±%.1f%%).", rel * 100)
+        case let .observationsRejected(n):
+            return "\(n) frame\(n == 1 ? "" : "s") didn't fit the ball's path and were ignored."
+        case let .frameGaps(gap):
+            return String(format: "Some frames were missing (largest gap %.0f ms).", gap * 1000)
+        case let .largeOutOfPlaneMotion(angle):
+            return String(format: "The shot went %.0f° toward or away from the camera; that part of the speed is less precise.", angle)
+        }
+    }
 }
 
 /// Diagnostics for the debug screen. Values here are fit internals, not results:

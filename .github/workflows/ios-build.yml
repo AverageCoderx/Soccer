@@ -1,0 +1,58 @@
+name: iOS build
+
+# Builds an unsigned .ipa. Sign and install it from Windows with Sideloadly
+# (see docs/INSTALL.md). No signing secrets are used or needed here.
+on:
+  push:
+    paths:
+      - "App/**"
+      - "Packages/**"
+      - "project.yml"
+      - ".github/workflows/ios-build.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Xcode version
+        run: xcodebuild -version
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Build (unsigned, device)
+        run: |
+          set +e
+          xcodebuild -project KickMetrics.xcodeproj -scheme KickMetrics \
+            -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            build > build.log 2>&1
+          status=$?
+          echo "---- errors ----"
+          grep -E "error:" build.log | sort -u | head -80
+          echo "---- tail ----"
+          tail -25 build.log
+          exit $status
+
+      - name: Package .ipa
+        run: |
+          mkdir -p Payload
+          cp -R build/Build/Products/Release-iphoneos/KickMetrics.app Payload/
+          zip -qry KickMetrics.ipa Payload
+          ls -lh KickMetrics.ipa
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: KickMetrics-ipa
+          path: KickMetrics.ipa
+          retention-days: 30

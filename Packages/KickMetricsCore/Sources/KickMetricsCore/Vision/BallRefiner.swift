@@ -35,6 +35,23 @@ public struct RefinedBall: Sendable, Equatable {
     public var centerSigma: Double
     public var radiusSigma: Double
 
+    public init(centerU: Double, centerV: Double, semiMinor: Double, semiMajor: Double, majorAxisAngle: Double = 0,
+                rmsResidual: Double = 0, inliers: Int = 0, rays: Int = 0, medianEdgeStrength: Double = 0,
+                confidence: Double, centerSigma: Double = 0.5, radiusSigma: Double = 0.5) {
+        self.centerU = centerU
+        self.centerV = centerV
+        self.semiMinor = semiMinor
+        self.semiMajor = semiMajor
+        self.majorAxisAngle = majorAxisAngle
+        self.rmsResidual = rmsResidual
+        self.inliers = inliers
+        self.rays = rays
+        self.medianEdgeStrength = medianEdgeStrength
+        self.confidence = confidence
+        self.centerSigma = centerSigma
+        self.radiusSigma = radiusSigma
+    }
+
     public func observation(timestamp: Double) -> BallObservation {
         BallObservation(timestamp: timestamp, centerU: centerU, centerV: centerV, semiMinor: semiMinor,
                         semiMajor: semiMajor, confidence: confidence,

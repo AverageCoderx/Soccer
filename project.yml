@@ -1,0 +1,59 @@
+# XcodeGen project definition. The .xcodeproj is generated from this file
+# (in CI: `xcodegen generate`) and is not committed.
+name: KickMetrics
+options:
+  bundleIdPrefix: app.kickmetrics
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+
+packages:
+  KickMetricsCore:
+    path: Packages/KickMetricsCore
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    SWIFT_STRICT_CONCURRENCY: minimal
+
+targets:
+  KickMetrics:
+    type: application
+    platform: iOS
+    sources:
+      - path: App
+        excludes:
+          - "Info.plist"
+    dependencies:
+      - package: KickMetricsCore
+        product: KickMetricsCore
+    scheme: {}
+    info:
+      path: App/Info.plist
+      properties:
+        CFBundleDisplayName: KickMetrics
+        CFBundleShortVersionString: "0.1.0"
+        CFBundleVersion: "1"
+        UILaunchScreen:
+          UIColorName: ""
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+        UIUserInterfaceStyle: Dark
+        UIRequiredDeviceCapabilities: [arm64]
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        NSCameraUsageDescription: "KickMetrics uses the camera to track the ball and measure shot speed. Recordings stay on this iPhone."
+        NSMotionUsageDescription: "KickMetrics reads the motion sensor to know which way is down and whether the phone is steady."
+        # Lets you copy recorded clips and debug reports out via the Files app.
+        UIFileSharingEnabled: true
+        LSSupportsOpeningDocumentsInPlace: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.kickmetrics.KickMetrics
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: NO
+        ENABLE_PREVIEWS: NO
+        CURRENT_PROJECT_VERSION: "1"
+        MARKETING_VERSION: "0.1.0"
